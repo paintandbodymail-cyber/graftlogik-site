@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GraftLogik — Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D0F11;
+    --surface: #161A1E;
+    --surface2: #1C2127;
+    --border: #2A2F36;
+    --accent: #E67E22;
+    --accent-dim: rgba(230, 126, 34, 0.12);
+    --accent-border: rgba(230, 126, 34, 0.25);
+    --blue: #2E86C1;
+    --text: #E8EAED;
+    --text2: #9AA0A8;
+    --text3: #6B7280;
+    --success: #10B981;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 680px; margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px; height: 56px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .logo-mark svg { width: 28px; height: 28px; }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header h1 span { color: var(--accent); }
+
+  .header p {
+    color: var(--text2);
+    font-size: 16px;
+  }
+
+  /* ── Contact card ── */
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .contact-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text2);
+    margin-bottom: 16px;
+  }
+
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 24px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-email:hover {
+    background: rgba(230, 126, 34, 0.2);
+    border-color: rgba(230, 126, 34, 0.4);
+  }
+
+  .contact-email svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  .response-note {
+    color: var(--text3);
+    font-size: 13px;
+    margin-top: 14px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── FAQ ── */
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover { border-color: var(--accent-border); }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    padding: 18px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .faq-q:hover { color: var(--accent); }
+
+  .faq-chevron {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    color: var(--text3);
+    transition: transform 0.25s ease, color 0.2s;
+  }
+
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 400px;
+  }
+
+  .faq-a-inner {
+    padding: 0 20px 18px;
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  /* ── Info blocks ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 500px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  .info-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+  }
+
+  .info-block h3 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .info-block p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .info-block .dim { color: var(--text2); font-weight: 400; }
+
+  /* ── Privacy summary ── */
+  .privacy-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .privacy-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .privacy-list li svg {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--success);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--text3);
+    font-size: 13px;
+  }
+
+  .footer a {
+    color: var(--text2);
+    text-decoration: none;
+  }
+
+  .footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <h1><span>GraftLogik</span> Support</h1>
+    <p>Help, FAQs, and everything you need to get tracking.</p>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-card">
+    <h2>Get In Touch</h2>
+    <a href="mailto:support@graftlogik.com" class="contact-email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </svg>
+      support@graftlogik.com
+    </a>
+    <p class="response-note">We aim to reply within 24 hours on working days.</p>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="section">
+    <div class="section-title">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How does GraftLogik work?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Create a job, tap Start when you pick up the tools, tap Stop when you're done. The app calculates your earnings automatically based on your hourly rate and tracks your progress against a daily labour target. You can also add materials and parts costs to each job to see the full picture.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Does it work without internet?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Yes. GraftLogik is built offline-first. All your data is stored on your phone and works with no signal at all. When you do have Wi-Fi or mobile data, the app syncs to the cloud automatically so your data is backed up.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How much does it cost?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        GraftLogik is free for the first 30 days with no restrictions — the full app, every feature. After that it's £3.99/month or £29.99/year (saves 33%). That works out to less than 60p a week. You can cancel any time through your Apple ID subscription settings.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How do I cancel my subscription?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Open the Settings app on your iPhone, tap your name at the top, then Subscriptions. You'll see GraftLogik listed there. Tap it and choose Cancel Subscription. Your access continues until the end of the current billing period. We don't make cancellation difficult — if it's not for you, no hard feelings.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I change my hourly rate?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Yes. You set a default hourly rate in Settings, which applies to new jobs automatically. You can also override the rate on any individual job — handy if you charge different rates for different types of work.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What happens to my data if I stop using the app?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Your data stays on your phone and in the cloud backup as long as your account exists. If you cancel your subscription, your existing data isn't deleted. If you decide to come back later, it'll still be there.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I edit time entries after the fact?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Yes. Every job has a time logs section where you can manually adjust start and end times. Forgot to stop the timer? Left it running over lunch? Just edit the entry. The app recalculates your earnings automatically.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How do I reset my password?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        On the login screen, tap "Forgot password?" and enter your email address. You'll receive a reset link. Tap it from your phone and you'll be taken straight to the password reset screen in the app.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is GraftLogik available on Android?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Not yet — GraftLogik is currently available on iPhone only. An Android version is in the works. If you'd like to be notified when it launches, drop us an email and we'll let you know.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I use it for trades other than bodyshop work?
+        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        Absolutely. The app works for anyone who bills by the hour and wants to track daily earnings — mechanics, plumbers, electricians, carpenters, mobile repair techs, you name it. The job title field is completely flexible, and vehicle details are optional.
+      </div></div>
+    </div>
+
+  </div>
+
+  <!-- App Info -->
+  <div class="section">
+    <div class="section-title">App Information</div>
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>Current Version</h3>
+        <p>1.0.0</p>
+      </div>
+      <div class="info-block">
+        <h3>Requires</h3>
+        <p>iOS 15.0 <span class="dim">or later</span></p>
+      </div>
+      <div class="info-block">
+        <h3>Currencies</h3>
+        <p>GBP, USD, AUD</p>
+      </div>
+      <div class="info-block">
+        <h3>Cloud Sync</h3>
+        <p>Automatic <span class="dim">when online</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div class="section">
+    <div class="section-title">Your Data &amp; Privacy</div>
+    <ul class="privacy-list">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Your job data is stored on your phone first and synced to a secure cloud backup. You own your data.
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        We do not sell, share, or use your data for advertising. Ever.
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        No third-party analytics or tracking SDKs are used in the app.
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        You can delete your account and all associated data at any time by contacting support.
+      </li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2026 GraftLogik. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="mailto:support@graftlogik.com">Contact</a>
+      &nbsp;&middot;&nbsp;
+      <a href="#">Privacy Policy</a>
+      &nbsp;&middot;&nbsp;
+      <a href="#">Terms of Use</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  // Toggle clicked
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
